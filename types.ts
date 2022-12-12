@@ -7,8 +7,9 @@ export enum permission {
 }
 
 export interface cameraStatus {
-    hasCameraPermission: permission,
-    camera: Camera,
-    image: Image,
-    type: CameraType
+    startCamera: boolean,
+    previewVisible: boolean,
+    capturedImage: any,
+    cameraType: CameraType,
+    flashMode: string
 }

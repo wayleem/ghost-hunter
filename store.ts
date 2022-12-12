@@ -7,16 +7,30 @@ import * as action from './actions'
 export type State = cameraStatus
 
 const INITIAL_STATE: State = {
-    hasCameraPermission: permission.denied,
-    camera: null,
-    image: null,
-    type: CameraType.back
+    startCamera: false,
+    previewVisible: false,
+    capturedImage: null,
+    cameraType: CameraType.back,
+    flashMode: "off"
+
 }
 
 const storeReducer = createReducer(INITIAL_STATE, (builder) => {
     builder
-        .addCase(action.setCameraPermission, (state, action) => {
-            state.hasCameraPermission = action.payload
+        .addCase(action.setStartCamera, (state, action) => {
+            state.startCamera = action.payload
+        })
+        .addCase(action.setPreviewVisible, (state, action) => {
+            state.previewVisible = action.payload
+        })
+        .addCase(action.setCapturedImage, (state, action) => {
+            state.capturedImage = action.payload
+        })
+        .addCase(action.setCameraType, (state, action) => {
+            state.cameraType = action.payload
+        })
+        .addCase(action.setFlashMode, (state, action) => {
+            state.flashMode = action.payload
         })
 })
 
