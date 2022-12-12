@@ -12,7 +12,9 @@ const INITIAL_STATE: State = {
     capturedImage: null,
     cameraType: CameraType.back,
     flashMode: FlashMode.off,
-    collection: []
+    collectionVisible: false,
+    collection: [],
+    detection: false
 
 }
 
@@ -32,6 +34,15 @@ const storeReducer = createReducer(INITIAL_STATE, (builder) => {
         })
         .addCase(action.setFlashMode, (state, action) => {
             state.flashMode = action.payload
+        })
+        .addCase(action.addPhoto, (state, action) => {
+            state.collection.push(action.payload)
+        })
+        .addCase(action.setDetection, (state, action) => {
+            state.detection = action.payload
+        })
+        .addCase(action.setCollectionVisible, (state, action) => {
+            state.collectionVisible = action.payload
         })
 })
 

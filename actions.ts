@@ -13,3 +13,7 @@ export const setCameraType = createAction<CameraType>("set_camera_type")
 export const setFlashMode = createAction<FlashMode>("set_flash_mode")
 
 export const addPhoto = createAction<any>("add_photo")
+
+export const setDetection = createAction<boolean>("set_detection")
+
+export const setCollectionVisible = createAction<boolean>("set_collection_visible")
