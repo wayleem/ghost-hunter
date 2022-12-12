@@ -11,7 +11,8 @@ const INITIAL_STATE: State = {
     previewVisible: false,
     capturedImage: null,
     cameraType: CameraType.back,
-    flashMode: FlashMode.off
+    flashMode: FlashMode.off,
+    collection: []
 
 }
 

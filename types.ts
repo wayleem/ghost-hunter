@@ -7,4 +7,5 @@ export interface cameraStatus {
     capturedImage: any,
     cameraType: CameraType,
     flashMode: FlashMode,
+    collection: any[]
 }
