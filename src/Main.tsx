@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar'
 import { useSelector, useDispatch } from 'react-redux'
 import { cameraStatus } from '../types'
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native'
-import { Camera, CameraType, FlashMode } from 'expo-camera'
+import { Camera, CameraType, FlashMode, PermissionStatus } from 'expo-camera'
+import * as action from '../actions'
 import CameraPreview from './CameraPreview'
 
 let camera: Camera
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default function App() {
+export default function Main() {
 	const startCamera = useSelector((state: cameraStatus) => state.startCamera)
 	const previewVisible = useSelector(
 		(state: cameraStatus) => state.previewVisible
@@ -26,12 +27,13 @@ export default function App() {
 	)
 	const cameraType = useSelector((state: cameraStatus) => state.cameraType)
 	const flashMode = useSelector((state: cameraStatus) => state.flashMode)
+	const collection = useSelector((state: cameraStatus) => state.collection)
 	const dispatch = useDispatch()
 
 	const __startCamera = async () => {
 		const { status } = await Camera.requestCameraPermissionsAsync()
-		if (status === 'granted') {
-			dispatch({ type: 'set_camera_permission', value: true })
+		if (status === PermissionStatus.GRANTED) {
+			dispatch(action.setStartCamera(true))
 		} else {
 			Alert.alert('Access denied')
 		}
@@ -39,35 +41,40 @@ export default function App() {
 
 	const __takePicture = async () => {
 		const photo: any = await camera.takePictureAsync()
-		dispatch({ type: 'set_preview_visible', value: true })
-		dispatch({ type: 'set_captured_image', value: photo })
+		dispatch(action.setPreviewVisible(true))
+		dispatch(action.setCapturedImage(photo))
 	}
 
-	const __savePhoto = () => {}
+	const __savePhoto = () => {
+		dispatch(action.addPhoto(capturedImage))
+		__startCamera()
+	}
 
 	const __retakePicture = () => {
-		dispatch({ type: 'set_captured_image', value: null })
-		dispatch({ type: 'set_preview_visible', value: false })
+		dispatch(action.setCapturedImage(""))
+		dispatch(action.setPreviewVisible(false))
 		__startCamera()
 	}
 
 	const __switchCamera = () => {
 		if (cameraType === 'back') {
-			dispatch({ type: 'set_camera_type', value: CameraType.front })
+			dispatch(action.setCameraType(CameraType.front))
 		} else {
-			dispatch({ type: 'set_camera_type', value: CameraType.back })
+			dispatch(action.setCameraType(CameraType.back))
 		}
 	}
 
 	const __handleFlashMode = () => {
 		if (flashMode === 'on') {
-			dispatch({ type: 'set_flash_mode', value: FlashMode.off })
+			dispatch(action.setFlashMode(FlashMode.off))
 		} else if (flashMode === 'off') {
-			dispatch({ type: 'set_flash_mode', value: FlashMode.on })
+			dispatch(action.setFlashMode(FlashMode.on))
 		} else {
-			dispatch({ type: 'set_flash_mode', value: FlashMode.auto })
+			dispatch(action.setFlashMode(FlashMode.auto))
 		}
 	}
+
+	const __openCollection = () => { }
 
 	return (
 		<View style={styles.container}>
