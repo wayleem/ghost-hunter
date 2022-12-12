@@ -1,7 +1,6 @@
 import { configureStore, createReducer } from "@reduxjs/toolkit"
-import { Image } from 'react-native'
-import { Camera, CameraType } from 'expo-camera'
-import { cameraStatus, permission } from './types'
+import { CameraType, FlashMode } from 'expo-camera'
+import { cameraStatus } from './types'
 import * as action from './actions'
 
 export type State = cameraStatus
@@ -11,7 +10,7 @@ const INITIAL_STATE: State = {
     previewVisible: false,
     capturedImage: null,
     cameraType: CameraType.back,
-    flashMode: "off"
+    flashMode: FlashMode.off
 
 }
 

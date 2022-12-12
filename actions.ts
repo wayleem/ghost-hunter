@@ -1,7 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { permission } from './types'
-import { Image } from 'react-native'
-import { Camera, CameraType } from 'expo-camera'
+import { CameraType, FlashMode } from 'expo-camera'
 
 
 export const setStartCamera = createAction<boolean>("set_start_camera")
@@ -12,4 +10,4 @@ export const setCapturedImage = createAction<any>("set_captured_image")
 
 export const setCameraType = createAction<CameraType>("set_camera_type")
 
-export const setFlashMode = createAction<string>("set_flash_mode")
+export const setFlashMode = createAction<FlashMode>("set_flash_mode")
