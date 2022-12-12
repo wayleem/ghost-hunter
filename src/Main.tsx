@@ -96,9 +96,10 @@ export default function Main() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Start">
+			<Stack.Navigator initialRouteName="CameraView">
 				<Stack.Screen name="Start" component={Start} initialParams={{ startCamera: __startCamera }} />
 				<Stack.Screen name="CameraView" component={CameraView} initialParams={{
+					camera: camera,
 					cameraType: __startCamera,
 					flashMode: flashMode,
 					handleFlashMode: __handleFlashMode,
@@ -118,14 +119,14 @@ export default function Main() {
 	)
 	/*
 		return (
-			<View style={styles.container}>
-				{startCamera ? (
-					<View
-						style={{
-							flex: 1,
-							width: '100%',
-						}}
-					>
+				<View style={styles.container}>
+					{startCamera ? (
+						<View
+							style={{
+								flex: 1,
+								width: '100%',
+							}}
+						>
 						{previewVisible && capturedImage ? (
 							<CameraPreview
 								photo={capturedImage}
