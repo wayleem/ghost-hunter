@@ -1,7 +1,8 @@
-import { configureStore, createReducer } from "@reduxjs/toolkit"
+import { configureStore, createReducer, getDefaultMiddleware } from "@reduxjs/toolkit"
 import { CameraType, FlashMode } from 'expo-camera'
 import { cameraStatus } from './types'
 import * as action from './actions'
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist"
 
 export type State = cameraStatus
 
@@ -35,5 +36,10 @@ const storeReducer = createReducer(INITIAL_STATE, (builder) => {
 
 
 export const store = configureStore({
-    reducer: storeReducer
+    reducer: storeReducer,
+    middleware: getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+        }
+    })
 })
