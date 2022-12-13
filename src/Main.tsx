@@ -1,14 +1,16 @@
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Camera, PermissionStatus } from 'expo-camera'
+import { cameraStatus } from '../types'
 import * as action from '../actions'
 import CameraPreview from './CameraPreview'
 import CameraView from './CameraView'
 import PhotoCollection from './PhotoCollection'
 
 export default function Main() {
+	const ghostCount = useSelector((state: cameraStatus) => state.ghostCount)
 	const dispatch = useDispatch()
 	const Tab = createBottomTabNavigator()
 
@@ -27,18 +29,19 @@ export default function Main() {
 
 	const __handleDetection = async () => {
 		let num
-		await delay(10000)
-		num = Math.random() * 100
-		if (num <= 25) {
-			dispatch(action.setDetection(true))
-			console.log("ghost detected")
-		} else {
-			dispatch(action.setDetection(false))
-			console.log("no ghost")
+		while (ghostCount > 0) {
+			await delay(10000)
+			num = Math.floor(Math.random() * 100)
+			if (num <= 25) {
+				dispatch(action.setDetection(true))
+				console.log("ghost detected")
+			} else {
+				dispatch(action.setDetection(false))
+				console.log("no ghost")
+			}
+			console.log(num)
 		}
-		__handleDetection()
 	}
-
 
 	__handleDetection()
 
