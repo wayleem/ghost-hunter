@@ -5,12 +5,14 @@ import { Camera, CameraType, FlashMode, PermissionStatus } from 'expo-camera'
 import { useSelector, useDispatch } from 'react-redux'
 import { cameraStatus } from '../types'
 import * as action from '../actions'
+import { store } from '../store';
 
 let camera: Camera
 export default function CameraView() {
     const cameraType = useSelector((state: cameraStatus) => state.cameraType)
     const flashMode = useSelector((state: cameraStatus) => state.flashMode)
     const detection = useSelector((state: cameraStatus) => state.detection)
+    const ghostCaught = useSelector((state: cameraStatus) => state.ghostCaught)
     const dispatch = useDispatch()
     const navigation = useNavigation<BottomTabNavigationProp<ParamListBase>>()
 
@@ -125,6 +127,14 @@ export default function CameraView() {
                             width: 25,
                         }}
                     />
+                    <Text style={{
+                        marginTop: 10,
+                        color: '#fff',
+                        fontSize: 15,
+                        fontWeight: 'bold'
+                    }}>
+                        {ghostCaught}/5
+                    </Text>
                 </View>
                 <View
                     style={{
