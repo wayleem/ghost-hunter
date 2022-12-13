@@ -3,13 +3,13 @@ import { Camera, CameraType, FlashMode } from 'expo-camera'
 
 export interface cameraStatus {
     startCamera: boolean,
-    previewVisible: boolean,
     capturedImage: any,
     cameraType: CameraType,
     flashMode: FlashMode,
-    collection: photo[],
+    collection: any[],
     detection: boolean,
-    collectionVisible: boolean
+    ghostCount: number,
+    ghostCaught: number
 }
 
 export interface photo {

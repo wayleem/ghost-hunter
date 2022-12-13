@@ -8,13 +8,13 @@ export type State = cameraStatus
 
 const INITIAL_STATE: State = {
     startCamera: false,
-    previewVisible: false,
     capturedImage: null,
     cameraType: CameraType.back,
     flashMode: FlashMode.off,
-    collectionVisible: false,
     collection: [],
-    detection: false
+    detection: false,
+    ghostCount: 5,
+    ghostCaught: 0
 
 }
 
@@ -22,9 +22,6 @@ const storeReducer = createReducer(INITIAL_STATE, (builder) => {
     builder
         .addCase(action.setStartCamera, (state, action) => {
             state.startCamera = action.payload
-        })
-        .addCase(action.setPreviewVisible, (state, action) => {
-            state.previewVisible = action.payload
         })
         .addCase(action.setCapturedImage, (state, action) => {
             state.capturedImage = action.payload
@@ -37,13 +34,19 @@ const storeReducer = createReducer(INITIAL_STATE, (builder) => {
         })
         .addCase(action.addPhoto, (state, action) => {
             state.collection.push(action.payload)
+            console.log(state.collection)
         })
         .addCase(action.setDetection, (state, action) => {
             state.detection = action.payload
         })
-        .addCase(action.setCollectionVisible, (state, action) => {
-            state.collectionVisible = action.payload
+        .addCase(action.decrementGhost, (state, action) => {
+            state.ghostCount -= 1
         })
+        .addCase(action.incrementCaught, (state, action) => {
+            state.ghostCaught++
+            console.log(state.ghostCaught)
+        })
+
 })
 
 

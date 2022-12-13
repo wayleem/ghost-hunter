@@ -18,3 +18,7 @@ export const addPhoto = createAction<photo>("add_photo")
 export const setDetection = createAction<boolean>("set_detection")
 
 export const setCollectionVisible = createAction<boolean>("set_collection_visible")
+
+export const decrementGhost = createAction<number>("decrement_ghost")
+
+export const incrementCaught = createAction<number>("increment_caught")
