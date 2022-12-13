@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { StyleSheet, Alert } from 'react-native'
+import { Alert } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Camera, PermissionStatus } from 'expo-camera'
@@ -34,12 +34,9 @@ export default function Main() {
 			num = Math.floor(Math.random() * 100)
 			if (num <= 25) {
 				dispatch(action.setDetection(true))
-				console.log("ghost detected")
 			} else {
 				dispatch(action.setDetection(false))
-				console.log("no ghost")
 			}
-			console.log(num)
 		}
 	}
 

@@ -1,5 +1,4 @@
-import { Image } from 'react-native'
-import { Camera, CameraType, FlashMode } from 'expo-camera'
+import { CameraType, FlashMode } from 'expo-camera'
 
 export interface cameraStatus {
     startCamera: boolean,

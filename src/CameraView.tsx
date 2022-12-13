@@ -1,11 +1,11 @@
-import { Text, View, TouchableOpacity, ImageBackground } from 'react-native'
-import { NavigationContainer, useNavigation, ParamListBase } from '@react-navigation/native';
+import { Text, View, TouchableOpacity } from 'react-native'
+import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { Camera, CameraType, FlashMode, PermissionStatus } from 'expo-camera'
+import { Camera, CameraType, FlashMode } from 'expo-camera'
 import { useSelector, useDispatch } from 'react-redux'
 import { cameraStatus } from '../types'
 import * as action from '../actions'
-import { store } from '../store';
+
 
 let camera: Camera
 export default function CameraView() {

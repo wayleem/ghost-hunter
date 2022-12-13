@@ -34,17 +34,15 @@ const storeReducer = createReducer(INITIAL_STATE, (builder) => {
         })
         .addCase(action.addPhoto, (state, action) => {
             state.collection.push(action.payload)
-            console.log(state.collection)
         })
         .addCase(action.setDetection, (state, action) => {
             state.detection = action.payload
         })
         .addCase(action.decrementGhost, (state, action) => {
-            state.ghostCount -= 1
+            state.ghostCount--
         })
         .addCase(action.incrementCaught, (state, action) => {
             state.ghostCaught++
-            console.log(state.ghostCaught)
         })
 
 })
