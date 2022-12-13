@@ -119,6 +119,7 @@ export default function CameraView() {
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
+                        onPress={() => dispatch(action.setDetection(true))}
                         style={{
                             backgroundColor: detection ? '#ff0000' : '#fff',
                             marginTop: 60,
