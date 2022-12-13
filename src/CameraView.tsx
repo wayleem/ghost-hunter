@@ -1,18 +1,44 @@
 import { Text, View, TouchableOpacity, ImageBackground } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, ParamListBase } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { Camera, CameraType, FlashMode, PermissionStatus } from 'expo-camera'
+import { useSelector, useDispatch } from 'react-redux'
+import { cameraStatus } from '../types'
+import * as action from '../actions'
 
-export default function CameraView({
-    camera,
-    cameraType,
-    flashMode,
-    handleFlashMode,
-    takePicture,
-    switchCamera,
-    openCollection,
-    detection
+let camera: Camera
+export default function CameraView() {
+    const cameraType = useSelector((state: cameraStatus) => state.cameraType)
+    const flashMode = useSelector((state: cameraStatus) => state.flashMode)
+    const detection = useSelector((state: cameraStatus) => state.detection)
+    const dispatch = useDispatch()
+    const navigation = useNavigation<BottomTabNavigationProp<ParamListBase>>()
 
-}: any) {
+    const __takePicture = async () => {
+        const photo: any = await camera.takePictureAsync()
+        dispatch(action.setPreviewVisible(true))
+        dispatch(action.setCapturedImage(photo))
+        navigation.navigate('CameraPreview')
+    }
+
+    const __switchCamera = () => {
+        if (cameraType === 'back') {
+            dispatch(action.setCameraType(CameraType.front))
+        } else {
+            dispatch(action.setCameraType(CameraType.back))
+        }
+    }
+
+    const __handleFlashMode = () => {
+        if (flashMode === 'on') {
+            dispatch(action.setFlashMode(FlashMode.off))
+        } else if (flashMode === 'off') {
+            dispatch(action.setFlashMode(FlashMode.on))
+        } else {
+            dispatch(action.setFlashMode(FlashMode.auto))
+        }
+    }
+
     return (
         <Camera
             type={cameraType}
@@ -40,7 +66,7 @@ export default function CameraView({
                     }}
                 >
                     <TouchableOpacity
-                        onPress={handleFlashMode}
+                        onPress={__handleFlashMode}
                         style={{
                             backgroundColor: flashMode === 'off' ? '#000' : '#fff',
                             borderRadius: 50,
@@ -57,7 +83,7 @@ export default function CameraView({
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={switchCamera}
+                        onPress={__switchCamera}
                         style={{
                             marginTop: 20,
                             borderRadius: 50,
@@ -74,7 +100,7 @@ export default function CameraView({
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={openCollection}
+                        onPress={() => navigation.navigate('PhotoCollection')}
                         style={{
                             marginTop: 40,
                             borderRadius: 50,
@@ -90,6 +116,15 @@ export default function CameraView({
                             📙
                         </Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: detection ? '#ff0000' : '#fff',
+                            marginTop: 60,
+                            borderRadius: 50,
+                            height: 25,
+                            width: 25,
+                        }}
+                    />
                 </View>
                 <View
                     style={{
@@ -110,7 +145,7 @@ export default function CameraView({
                         }}
                     >
                         <TouchableOpacity
-                            onPress={takePicture}
+                            onPress={__takePicture}
                             style={{
                                 width: 70,
                                 height: 70,

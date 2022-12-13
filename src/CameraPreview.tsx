@@ -1,11 +1,28 @@
 import { Text, View, TouchableOpacity, ImageBackground } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { NavigationContainer, useNavigation, ParamListBase } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { cameraStatus } from '../types'
+import * as action from '../actions'
 
-export default function CameraPreview({
-	photo,
-	retakePicture,
-	savePhoto,
-}: any) {
-	console.log('sdsfds', photo)
+export default function CameraPreview() {
+	const capturedImage = useSelector((state: cameraStatus) => state.capturedImage)
+	const dispatch = useDispatch()
+	const navigation = useNavigation<BottomTabNavigationProp<ParamListBase>>()
+
+	const __savePhoto = () => {
+		dispatch(action.addPhoto(capturedImage))
+		dispatch(action.setCapturedImage(""))
+		dispatch(action.setPreviewVisible(false))
+		navigation.navigate('CameraView')
+	}
+
+	const __retakePicture = () => {
+		dispatch(action.setCapturedImage(""))
+		dispatch(action.setPreviewVisible(false))
+		navigation.navigate('CameraView')
+	}
+
 	return (
 		<View
 			style={{
@@ -16,7 +33,7 @@ export default function CameraPreview({
 			}}
 		>
 			<ImageBackground
-				source={{ uri: photo && photo.uri }}
+				source={{ uri: capturedImage && capturedImage.uri }}
 				style={{
 					flex: 1,
 				}}
@@ -36,7 +53,7 @@ export default function CameraPreview({
 						}}
 					>
 						<TouchableOpacity
-							onPress={retakePicture}
+							onPress={__retakePicture}
 							style={{
 								width: 130,
 								height: 40,
@@ -55,7 +72,7 @@ export default function CameraPreview({
 							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
-							onPress={savePhoto}
+							onPress={__savePhoto}
 							style={{
 								width: 130,
 								height: 40,
