@@ -2,7 +2,7 @@
 https://stonybrook.digication.com/est-310-project-21/playtest
 
 # Deploying
-Download Expo Go on your mobile device to provide a server to host the app.
+Download Expo Go on your mobile device to provide a server to host the app. Be sure to enable camera permissions on the Expo Go app.
 
 # Building & Testing
 1. run `npm i` in the terminal of the working directory.
