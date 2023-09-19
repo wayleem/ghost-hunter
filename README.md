@@ -1,5 +1,5 @@
 # Ghost Hunter
-A mobile photography game for a Stony Brook related course. Project outline is to rapidly prototype a mobile app. The premise of the game is to use the camera function is capture ghosts in your environment. The app attempts to emulate "ghost hunting" with a crude EMF reader on the UI. This simple prototytpe's lifespan to playtest presentation was about 2-3 weeks. 
+A mobile photography game for a Stony Brook related course. Project outline is to rapidly prototype a mobile app. The premise of the game is to use the camera function is capture ghosts in your environment. The app attempts to emulate "ghost hunting" with a crude EMF reader on the UI. This simple prototytpe's lifespan to playtest presentation was about < 2 weeks. 
 
 ## Preview
 Here are some gifs demonstrating the game's functionality.
